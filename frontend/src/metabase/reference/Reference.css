@@ -97,3 +97,8 @@
     top: -10px;
     font-size: 12px;
 }
+
+:local(.usefulQuestions) {
+    composes: text-brand mt1 from "style";
+    font-size: 14px;
+}
