@@ -77,6 +77,13 @@ const getMetricSections = (metric, user) => metric ? {
         name: 'Details',
         update: 'updateMetric',
         type: 'metric',
+        questions: [
+            {
+                text: `See raw data for ${metric.name}`,
+                icon: "illustration-icon-table",
+                link: `/q?table=${metric.table_id}&metric=${metric.id}`
+            }
+        ],
         breadcrumb: `${metric.name}`,
         fetch: {fetchMetrics: []},
         get: 'getMetric',
@@ -121,6 +128,13 @@ const getSegmentSections = (segment, user) => segment ? {
         name: 'Details',
         update: 'updateSegment',
         type: 'segment',
+        questions: [
+            {
+                text: `See raw data for ${segment.name}`,
+                icon: "illustration-icon-table",
+                link: `/q?table=${segment.table_id}&segment=${segment.id}`
+            }
+        ],
         breadcrumb: `${segment.name}`,
         fetch: {fetchSegments: []},
         get: 'getSegment',
@@ -224,6 +238,13 @@ const getTableSections = (database, table) => database && table ? {
         name: 'Details',
         update: 'updateTable',
         type: 'table',
+        questions: [
+            {
+                text: `See raw data for ${table.display_name}`,
+                icon: "illustration-icon-table",
+                link: `/q?table=${table.id}`
+            }
+        ],
         breadcrumb: `${table.display_name}`,
         fetch: {fetchDatabaseMetadata: [database.id]},
         get: 'getTable',
@@ -558,6 +579,15 @@ export const getHasRevisionHistory = createSelector(
     (section) =>
         section.type === 'metric' ||
         section.type === 'segment'
+)
+
+export const getHasQuestions = createSelector(
+    [getSection],
+    (section) =>
+        section.type === 'metric' ||
+        section.type === 'segment' ||
+        section.type === 'table' ||
+        section.type === 'field'
 )
 
 export const getIsEditing = (state) => state.reference.isEditing;
